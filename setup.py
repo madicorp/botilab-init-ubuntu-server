@@ -3,7 +3,7 @@ from distutils.core import setup
 from pip.req import parse_requirements
 from setuptools import find_packages
 
-requirements = [str(ir.req) for ir in parse_requirements('requirements.txt')]
+requirements = [str(ir.req) for ir in parse_requirements('requirements.txt', session='hack')]
 with open('VERSION') as f:
     version = f.readlines()[0].strip()
 
