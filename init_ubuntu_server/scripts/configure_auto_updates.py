@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from fabric.operations import run
 
-from scripts.fab_utils import create_or_replace_line_in_file
+from init_ubuntu_server.scripts.fab_utils import create_or_replace_line_in_file
 
 
 def _replace_in_10_periodic_config(template, value):

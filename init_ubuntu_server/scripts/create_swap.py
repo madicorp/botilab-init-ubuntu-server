@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from fabric.operations import sudo
 
-from scripts.fab_utils import create_or_replace_line_in_file
+from init_ubuntu_server.scripts.fab_utils import create_or_replace_line_in_file
 
 
 def _create_or_replace_in_sysctl_conf(template, value):
