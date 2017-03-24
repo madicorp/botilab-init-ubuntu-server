@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from fabric.operations import run
 
-from init_ubuntu_server.scripts.fab_utils import get_result, create_or_replace_line_in_file
+from botilab_init_ubuntu_server.scripts.fab_utils import get_result, create_or_replace_line_in_file
 
 
 def copy_current_user_public_key(username):
