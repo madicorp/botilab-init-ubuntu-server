@@ -14,3 +14,6 @@ def configure_auto_updates():
     _replace_in_10_periodic_config("APT::Periodic::Download-Upgradeable-Packages {}", 1)
     _replace_in_10_periodic_config("APT::Periodic::AutocleanInterval {}", 7)
     _replace_in_10_periodic_config("APT::Periodic::Unattended-Upgrade {}", 1)
+    blacklist = ['intel_rapl']
+    for elt in blacklist:
+        run('echo "blacklist {}" >> /etc/modprobe.d/blacklist.conf'.format(elt))
