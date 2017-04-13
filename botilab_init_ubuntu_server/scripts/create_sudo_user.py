@@ -10,4 +10,4 @@ def create_sudo_user(username, pwd):
     run('echo "{username}:{password}" | chpasswd'.format(username=username, password=pwd))
 
     # Add group to sudoers
-    run('echo "%{group} ALL=(ALL) ALL" >> /etc/sudoers'.format(group=username))
+    run('echo "%{group} ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers'.format(group=username))
