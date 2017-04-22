@@ -1,0 +1,41 @@
+---
+
+- hosts: docker_hosts
+  roles:
+    - role: mivok0.users
+      become: yes
+    - role: knopki.sudoers
+      become: yes
+    - role: geerlingguy.security
+      become: yes
+    - role: geerlingguy.firewall
+      become: yes
+    - role: tersmitten.swapfile
+      become: yes
+  vars:
+    security_ssh_password_authentication: 'no'
+    security_autoupdate_enabled: true
+    groups_to_create:
+      - name: '{{ user }}'
+        gid: 2000
+      - name: 'docker'
+        gid: 2001
+    users:
+      - username: '{{ user }}'
+        uid: 2000
+        gid: 2000
+        groups: ['{{ user }}', 'docker']
+        ssh_key:
+          - '{{ public_key }}'
+    firewall_allowed_tcp_ports:
+      - "22"
+      - "80"
+      - "443"
+    firewall_forwarded_tcp_ports:
+      - { src: "80", dest: "8080" }
+    firewall_log_dropped_packets: true
+    sudoers:
+      - name: '{{ user }}'
+        users: 'ALL'
+    sudoers_filename: '{{ user }}'
+    swapfile_size: '4G'

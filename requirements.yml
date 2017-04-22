@@ -1,0 +1,6 @@
+---
+- src: knopki.sudoers
+- src: geerlingguy.security
+- src: geerlingguy.firewall
+- src: tersmitten.swapfile
+- src: mivok0.users

@@ -1,7 +1,6 @@
 .DS_Store
 .idea/
-venv/
 .vagrant
-botilab_init_ubuntu_server.egg-info
-build
-dist
+galaxy_roles
+hosts
+playbook.retry
