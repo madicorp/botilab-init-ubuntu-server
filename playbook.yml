@@ -1,41 +1,53 @@
 ---
 
 - hosts: docker_hosts
+  pre_tasks:
+    - name: Create docker group if not exists
+      group:
+        name: docker
+        state: present
+    - name: Allow traffic to ssh
+      ufw:
+        rule: allow
+        direction: in
+        port: ssh
+      with_items: "{{ ufw_port_forward_settings }}"
+      become: yes
   roles:
     - role: mivok0.users
       become: yes
     - role: knopki.sudoers
       become: yes
-    - role: geerlingguy.security
-      become: yes
-    - role: geerlingguy.firewall
-      become: yes
     - role: tersmitten.swapfile
       become: yes
+    - role: ekougs.ufw-port-forward
+      become: yes
+    - role: geerlingguy.security
+      become: yes
   vars:
-    security_ssh_password_authentication: 'no'
-    security_autoupdate_enabled: true
+    public_key: "{{ lookup('file', public_key_loc) }}"
     groups_to_create:
-      - name: '{{ user }}'
+      - name: "{{ user }}"
         gid: 2000
-      - name: 'docker'
-        gid: 2001
     users:
-      - username: '{{ user }}'
+      - username: "{{ user }}"
         uid: 2000
         gid: 2000
-        groups: ['{{ user }}', 'docker']
+        groups: ["{{ user }}", "docker"]
         ssh_key:
-          - '{{ public_key }}'
-    firewall_allowed_tcp_ports:
-      - "22"
-      - "80"
-      - "443"
-    firewall_forwarded_tcp_ports:
-      - { src: "80", dest: "8080" }
-    firewall_log_dropped_packets: true
+          - "{{ public_key }}"
     sudoers:
-      - name: '{{ user }}'
-        users: 'ALL'
-    sudoers_filename: '{{ user }}'
-    swapfile_size: '4G'
+      - name: "{{ user }}"
+        users:
+          - "ALL"
+    sudoers_filename: "{{ user }}"
+    sudoers_nopasswd: true
+    swapfile_size: "4G"
+    security_ssh_password_authentication: 'no'
+    security_autoupdate_enabled: true
+    ufw_port_forward_settings:
+      - src_interface: "{{ ext_interface }}"
+        src_ip: "{{ ext_ip }}"
+        src_port: 80
+        dest_ip: 127.0.0.1
+        dest_port: 8080

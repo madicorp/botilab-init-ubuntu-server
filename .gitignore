@@ -4,3 +4,6 @@
 galaxy_roles
 hosts
 playbook.retry
+*.log
+*.retry
+build

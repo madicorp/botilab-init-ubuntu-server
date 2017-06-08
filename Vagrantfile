@@ -12,7 +12,7 @@ Vagrant.configure("2") do |config|
 
   # Every Vagrant development environment requires a box. You can search for
   # boxes at https://atlas.hashicorp.com/search.
-  config.vm.box = "ubuntu/trusty64"
+  config.vm.box = "ubuntu/xenial64"
 
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
@@ -51,6 +51,8 @@ Vagrant.configure("2") do |config|
   #   vb.memory = "1024"
   # config.vm.network "private_network", :type => 'dhcp', :name => 'vboxnet0', :adapter => 2
   # config.vm.network "forwarded_port", guest: 80, host: 8080
+    vb.name = "init-ubuntu-server"
+    config.vm.network "forwarded_port", guest: 80, host: 8181
   end
   #
   # View the documentation for the provider you are using for more
@@ -73,5 +75,6 @@ Vagrant.configure("2") do |config|
     sed -i 's/PasswordAuthentication .*/PasswordAuthentication yes/' /etc/ssh/sshd_config
     sed -i 's/PermitRootLogin .*/PermitRootLogin yes/' /etc/ssh/sshd_config
     service ssh restart
+    ln -s /usr/bin/python3 /usr/bin/python
   SHELL
 end
