@@ -34,6 +34,8 @@
       become: yes
     - role: geerlingguy.security
       become: yes
+    - role: franklinkim.docker-compose
+      become: yes
   vars:
     public_key: "{{ lookup('file', public_key_loc) }}"
     groups_to_create:
@@ -61,3 +63,4 @@
         src_port: 80
         dest_ip: 127.0.0.1
         dest_port: 8080
+    docker_compose_version: 1.9.0

@@ -4,3 +4,4 @@
 - src: tersmitten.swapfile
 - src: mivok0.users
 - src: ekougs.ufw-port-forward
+- src: franklinkim.docker-compose
