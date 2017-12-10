@@ -63,4 +63,9 @@
         src_port: 80
         dest_ip: 127.0.0.1
         dest_port: 8080
+      - src_interface: "{{ ext_interface }}"
+        src_ip: "{{ ext_ip }}"
+        src_port: 443
+        dest_ip: 127.0.0.1
+        dest_port: 4433
     docker_compose_version: 1.9.0
